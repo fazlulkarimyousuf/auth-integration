@@ -1,10 +1,13 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import React from "react";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { use } from "react";
 import { Link } from "react-router";
-import {auth} from "../../firebase.init";
+import { AuthContext } from "../../Context/AuthContext";
+// import { auth } from "../../firebase.init";
 // import { auth } from "../../firebase.init";
 
 const Register = () => {
+  const { createUser } = use(AuthContext);
+
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -13,12 +16,19 @@ const Register = () => {
     console.log(name, email, password);
 
     // create user
-    createUserWithEmailAndPassword(auth, email, password)
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then((result) => {
+    //     console.log(result.user);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error, "error");
+    //   });
+    createUser(email, password)
       .then((result) => {
         console.log(result);
       })
       .catch((error) => {
-        console.log(error,"error");
+        console.log(error);
       });
   };
 
